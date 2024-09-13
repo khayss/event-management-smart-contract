@@ -7,6 +7,7 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 contract EventNft is ERC721, ERC721URIStorage, Ownable {
     uint256 public maxAttendees;
+    uint256 nextTokenId;
 
     constructor(
         string memory _name,
@@ -15,9 +16,13 @@ contract EventNft is ERC721, ERC721URIStorage, Ownable {
         uint256 _maxAttendees
     ) ERC721(_name, _symbol) Ownable(_event) {
         maxAttendees = _maxAttendees;
+        nextTokenId = 1;
     }
 
     function safeMint(address to, uint256 tokenId) public onlyOwner {
+        require(nextTokenId <= maxAttendees, "Max attendees reached");
+        nextTokenId++;
+
         _safeMint(to, tokenId);
     }
 
