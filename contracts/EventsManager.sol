@@ -11,10 +11,9 @@ contract EventsManager {
     function createEventNft(
         string memory _name,
         string memory _symbol,
-        address _event,
         uint256 _maxAttendees
     ) public {
-        Event newEvent = new Event(_name, _symbol, _event, _maxAttendees);
+        Event newEvent = new Event(_name, _symbol, _maxAttendees);
         events.push(address(newEvent));
     }
 }
